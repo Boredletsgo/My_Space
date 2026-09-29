@@ -1,62 +1,68 @@
-import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Badge } from '@/components/ui/Badge'
+import { Container } from '@/components/ui/Container'
 import { Card } from '@/components/ui/Card'
-import { Section } from '@/components/ui/Section'
-import { site } from '@/data/site'
-import { usePageMeta } from '@/hooks/usePageMeta'
+import { Badge } from '@/components/ui/Badge'
 import { formatDate, getAllPosts } from '@/lib/blog'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 export default function BlogList() {
   const posts = getAllPosts()
 
   usePageMeta({
-    title: `Blog — ${site.name}`,
-    description: 'Notes on agentic AI, MCP, LLM systems, and platform engineering.',
+    title: 'Blog — Mahima Sahu',
+    description: 'Notes on AI engineering, .NET platforms and test automation.',
   })
 
   return (
-    <Section
-      id="blog"
-      eyebrow="Blog"
-      title="Notes & writing"
-      description="Lessons from building agentic AI systems, MCP servers, and automation platforms."
-      className="pt-12"
-    >
-      {posts.length === 0 ? (
-        <Card>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            No posts yet. Add a markdown file to <code>src/content/blog/</code> and it
-            appears here automatically.
+    <div className="py-16 sm:py-24">
+      <Container>
+        <header className="mb-12 max-w-2xl">
+          <span className="border-ink bg-sun-400 text-ink shadow-hard mb-5 inline-flex rounded-full border-2 px-4 py-1 text-xs font-bold tracking-[0.18em] uppercase">
+            Writing
+          </span>
+          <h1 className="text-4xl leading-[1.05] text-balance sm:text-6xl">
+            Notes from the build.
+          </h1>
+          <p className="text-muted mt-4 text-base leading-relaxed sm:text-lg">
+            Things I learned shipping AI platforms, .NET services and automated tests.
           </p>
-        </Card>
-      ) : (
-        <div className="space-y-5">
-          {posts.map((post) => (
-            <Card key={post.slug} interactive>
-              <Link to={`/blog/${post.slug}`} className="block">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold">{post.title}</h3>
-                  <span className="text-xs text-slate-500 dark:text-slate-500">
-                    {formatDate(post.date)} · {post.readingTime} min read
+        </header>
+
+        {posts.length === 0 ? (
+          <Card>
+            <p className="text-muted">No posts yet — check back soon.</p>
+          </Card>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2">
+            {posts.map((post) => (
+              <Card key={post.slug} interactive className="p-0">
+                <Link to={`/blog/${post.slug}`} className="block h-full p-6">
+                  <div className="mb-4 flex flex-wrap items-center gap-2">
+                    <span className="border-ink bg-canvas inline-flex rounded-full border-2 px-3 py-1 text-xs font-semibold">
+                      {formatDate(post.date)}
+                    </span>
+                    <span className="text-muted text-xs font-semibold">
+                      {post.readingTime} min read
+                    </span>
+                  </div>
+                  <h2 className="text-2xl leading-tight text-balance">{post.title}</h2>
+                  <p className="text-muted mt-3 text-sm leading-relaxed">
+                    {post.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <Badge key={tag}>{tag}</Badge>
+                    ))}
+                  </div>
+                  <span className="border-ink bg-sun-400 text-ink mt-6 inline-flex rounded-full border-2 px-4 py-1.5 text-sm font-bold">
+                    Read →
                   </span>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                  {post.description}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  {post.tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
-                  <span className="text-brand-600 dark:text-brand-400 ml-auto inline-flex items-center gap-1 text-sm font-medium">
-                    Read <ArrowRight className="size-3.5" />
-                  </span>
-                </div>
-              </Link>
-            </Card>
-          ))}
-        </div>
-      )}
-    </Section>
+                </Link>
+              </Card>
+            ))}
+          </div>
+        )}
+      </Container>
+    </div>
   )
 }

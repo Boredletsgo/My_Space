@@ -1,17 +1,16 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
-type Variant = 'primary' | 'secondary' | 'ghost'
+type Variant = 'primary' | 'sun' | 'coral' | 'outline'
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-not-allowed disabled:opacity-60'
+  'inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-2.5 text-sm font-bold shadow-hard transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg active:translate-x-0 active:translate-y-0 active:shadow-hard-none disabled:cursor-not-allowed disabled:opacity-60'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-600 text-white hover:bg-brand-700',
-  secondary:
-    'border border-slate-300 text-slate-800 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800',
-  ghost:
-    'text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400',
+  primary: 'bg-ink text-canvas',
+  sun: 'bg-sun-400 text-ink',
+  coral: 'bg-coral-500 text-white',
+  outline: 'bg-surface text-ink',
 }
 
 export function Button({

@@ -9,7 +9,7 @@ const BlogPost = lazy(() => import('@/pages/BlogPost'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 function RouteFallback() {
-  return <div className="py-24 text-center text-sm text-slate-500">Loading…</div>
+  return <div className="text-muted py-24 text-center text-sm">Loading…</div>
 }
 
 export default function App() {

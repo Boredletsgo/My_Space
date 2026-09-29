@@ -10,7 +10,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'error'
 const formspreeId = import.meta.env.VITE_FORMSPREE_ID ?? site.formspreeId
 
 const inputClass =
-  'w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white'
+  'w-full rounded-2xl border-2 border-ink bg-surface px-4 py-3 text-sm font-medium text-ink outline-none transition-shadow placeholder:text-muted focus:shadow-hard'
 
 export function Contact() {
   const [status, setStatus] = useState<Status>('idle')
@@ -53,30 +53,36 @@ export function Contact() {
       title="Let's build something"
       description="Open to AI engineering roles, agentic system design, and collaborations."
     >
-      <div className="grid gap-6 md:grid-cols-[1fr_1.3fr]">
-        <Card className="h-fit">
-          <h3 className="text-sm font-semibold tracking-[0.18em] uppercase">Reach me</h3>
-          <div className="mt-5 space-y-4">
-            <a
-              href={`mailto:${site.email}`}
-              className="hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-3 text-sm text-slate-600 transition-colors dark:text-slate-400"
-            >
-              <Mail className="size-4 shrink-0" /> {site.email}
+      <div className="grid gap-6 md:grid-cols-[1fr_1.35fr]">
+        <div className="space-y-5">
+          <Card tone="cobalt">
+            <a href={`mailto:${site.email}`} className="block">
+              <Mail className="size-6" />
+              <p className="mt-4 text-xs font-bold tracking-[0.18em] uppercase opacity-80">
+                Email
+              </p>
+              <p className="mt-1 text-sm font-bold break-all">{site.email}</p>
             </a>
-            <a
-              href={`tel:${site.phone.replace(/\s/g, '')}`}
-              className="hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-3 text-sm text-slate-600 transition-colors dark:text-slate-400"
-            >
-              <Phone className="size-4 shrink-0" /> {site.phone}
+          </Card>
+
+          <Card tone="sun">
+            <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="block">
+              <Phone className="size-6" />
+              <p className="mt-4 text-xs font-bold tracking-[0.18em] uppercase opacity-70">
+                Phone
+              </p>
+              <p className="mt-1 text-sm font-bold">{site.phone}</p>
             </a>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
         <Card>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid gap-5 sm:grid-cols-2">
               <label className="block">
-                <span className="mb-1.5 block text-sm font-medium">Name</span>
+                <span className="mb-2 block text-xs font-bold tracking-[0.14em] uppercase">
+                  Name
+                </span>
                 <input
                   name="name"
                   required
@@ -85,7 +91,9 @@ export function Contact() {
                 />
               </label>
               <label className="block">
-                <span className="mb-1.5 block text-sm font-medium">Email</span>
+                <span className="mb-2 block text-xs font-bold tracking-[0.14em] uppercase">
+                  Email
+                </span>
                 <input
                   name="email"
                   type="email"
@@ -97,7 +105,9 @@ export function Contact() {
             </div>
 
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium">Message</span>
+              <span className="mb-2 block text-xs font-bold tracking-[0.14em] uppercase">
+                Message
+              </span>
               <textarea
                 name="message"
                 required
@@ -118,13 +128,13 @@ export function Contact() {
               </Button>
 
               {status === 'sent' && (
-                <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
-                  Thanks — I'll get back to you soon.
+                <p className="border-ink bg-sun-400 rounded-full border-2 px-4 py-1.5 text-sm font-bold">
+                  Thanks — I'll be in touch.
                 </p>
               )}
               {status === 'error' && (
-                <p className="text-sm font-medium text-red-600 dark:text-red-400">
-                  Something went wrong. Please email me directly.
+                <p className="border-ink bg-coral-500 rounded-full border-2 px-4 py-1.5 text-sm font-bold text-white">
+                  Something went wrong. Email me directly.
                 </p>
               )}
             </div>

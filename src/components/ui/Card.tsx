@@ -1,21 +1,33 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
+type Tone = 'surface' | 'sun' | 'cobalt' | 'coral'
+
+const tones: Record<Tone, string> = {
+  surface: 'bg-surface text-ink',
+  sun: 'bg-sun-400 text-ink',
+  cobalt: 'bg-cobalt-500 text-white',
+  coral: 'bg-coral-500 text-white',
+}
+
 export function Card({
   children,
   className,
+  tone = 'surface',
   interactive = false,
 }: {
   children: ReactNode
   className?: string
+  tone?: Tone
   interactive?: boolean
 }) {
   return (
     <div
       className={cn(
-        'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60',
+        'border-ink shadow-hard rounded-3xl border-2 p-6',
+        tones[tone],
         interactive &&
-          'hover:border-brand-400 dark:hover:border-brand-500 transition-colors duration-200 hover:shadow-md',
+          'hover:shadow-hard-lg transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5',
         className,
       )}
     >

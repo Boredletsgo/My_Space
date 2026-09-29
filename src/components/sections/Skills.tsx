@@ -5,20 +5,26 @@ import { Section } from '@/components/ui/Section'
 import { certifications } from '@/data/education'
 import { skillGroups } from '@/data/skills'
 
+const pips = ['bg-sun-400', 'bg-cobalt-500', 'bg-coral-500']
+
 export function Skills() {
   return (
     <Section
       id="skills"
       eyebrow="Skills"
-      title="Toolkit"
-      description="The stack I reach for when designing and shipping AI systems."
+      title="The toolkit"
+      description="What I reach for when designing and shipping AI systems."
     >
       <div className="grid gap-6 md:grid-cols-2">
-        {skillGroups.map((group) => (
+        {skillGroups.map((group, index) => (
           <Card key={group.category}>
-            <h3 className="text-sm font-semibold tracking-[0.18em] uppercase">
-              {group.category}
-            </h3>
+            <div className="flex items-center gap-2.5">
+              <span
+                className={`size-3.5 rounded-full ${pips[index % pips.length]}`}
+                aria-hidden
+              />
+              <h3 className="text-base tracking-tight uppercase">{group.category}</h3>
+            </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <Badge key={skill}>{skill}</Badge>
@@ -28,19 +34,20 @@ export function Skills() {
         ))}
       </div>
 
-      <Card className="mt-6">
-        <h3 className="text-sm font-semibold tracking-[0.18em] uppercase">
-          Certifications
-        </h3>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+      <Card tone="sun" className="mt-6">
+        <h3 className="text-lg">Certifications</h3>
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2">
           {certifications.map((cert) => (
-            <li key={cert.name} className="flex items-start gap-2.5">
-              <BadgeCheck className="text-brand-500 mt-0.5 size-4 shrink-0" />
-              <span className="text-sm text-slate-600 dark:text-slate-400">
-                <span className="font-medium text-slate-900 dark:text-white">
-                  {cert.name}
+            <li
+              key={cert.name}
+              className="border-ink bg-surface flex items-start gap-3 rounded-2xl border-2 px-4 py-3"
+            >
+              <BadgeCheck className="mt-0.5 size-4 shrink-0" />
+              <span>
+                <span className="block text-sm font-bold">{cert.name}</span>
+                <span className="text-muted block text-xs font-semibold">
+                  {cert.issuer}
                 </span>
-                <span className="block text-xs text-slate-500">{cert.issuer}</span>
               </span>
             </li>
           ))}

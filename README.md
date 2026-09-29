@@ -10,14 +10,14 @@ npm install
 npm run dev      # http://localhost:5173
 ```
 
-| Script              | Purpose                                        |
-| ------------------- | ---------------------------------------------- |
-| `npm run dev`       | Dev server with HMR                            |
+| Script              | Purpose                                         |
+| ------------------- | ----------------------------------------------- |
+| `npm run dev`       | Dev server with HMR                             |
 | `npm run build`     | Type-check, bundle, emit `404.html`/`.nojekyll` |
-| `npm run preview`   | Serve the production build locally             |
-| `npm run lint`      | oxlint                                         |
-| `npm run typecheck` | TypeScript only                                |
-| `npm run format`    | Prettier (+ Tailwind class sorting)            |
+| `npm run preview`   | Serve the production build locally              |
+| `npm run lint`      | oxlint                                          |
+| `npm run typecheck` | TypeScript only                                 |
+| `npm run format`    | Prettier (+ Tailwind class sorting)             |
 
 ## Project structure
 
@@ -43,13 +43,13 @@ not JSX.
 
 ## Editing content
 
-| What                                     | Where                        |
-| ---------------------------------------- | ---------------------------- |
-| Name, role, summary, socials, nav, resume | `src/data/site.ts`           |
-| Work history                              | `src/data/experience.ts`     |
-| Projects                                  | `src/data/projects.ts`       |
-| Skill groups                              | `src/data/skills.ts`         |
-| Education, certifications, publications   | `src/data/education.ts`      |
+| What                                      | Where                           |
+| ----------------------------------------- | ------------------------------- |
+| Name, role, summary, socials, nav, resume | `src/data/site.ts`              |
+| Work history                              | `src/data/experience.ts`        |
+| Projects                                  | `src/data/projects.ts`          |
+| Skill groups                              | `src/data/skills.ts`            |
+| Education, certifications, publications   | `src/data/education.ts`         |
 | Resume PDF                                | `public/Mahima_Sahu_Resume.pdf` |
 
 ### Adding a blog post
@@ -105,7 +105,21 @@ npx gh-pages -d dist --dotfiles
 
 ## Theming
 
-Brand colours and fonts are CSS variables in the `@theme` block of `src/index.css`.
-Change `--color-brand-*` to restyle the whole site. Dark mode is class-based, persisted
-in `localStorage`, and applied before first paint by an inline script in `index.html` to
+The design is neo-brutalist: heavy `border-2 border-ink` outlines, hard offset shadows
+(`shadow-hard` / `shadow-hard-lg`) and flat accent colours. All tokens live in the
+`@theme` block of `src/index.css`:
+
+| Token                                | Purpose                                   |
+| ------------------------------------ | ----------------------------------------- |
+| `--color-ink`                        | Outlines, shadows, body text              |
+| `--color-canvas` / `--color-surface` | Page and card backgrounds                 |
+| `--color-muted`                      | Secondary text                            |
+| `--color-sun-*`                      | Yellow accent (eyebrows, active nav pill) |
+| `--color-cobalt-*`                   | Blue accent (links, focus ring)           |
+| `--color-coral-*`                    | Red accent (status pills, highlights)     |
+
+Dark mode simply overrides `--color-ink`, `--color-canvas`, `--color-surface` and
+`--color-muted` under `.dark`; because every border and shadow references `var(--color-ink)`,
+the entire theme flips with those four lines. The mode is class-based, persisted in
+`localStorage`, and applied before first paint by an inline script in `index.html` to
 avoid a flash.

@@ -1,63 +1,58 @@
-import { ArrowLeft } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
-import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
-import { site } from '@/data/site'
-import { usePageMeta } from '@/hooks/usePageMeta'
+import { Card } from '@/components/ui/Card'
+import { Badge } from '@/components/ui/Badge'
 import { formatDate, getPost } from '@/lib/blog'
+import { usePageMeta } from '@/hooks/usePageMeta'
+import NotFound from '@/pages/NotFound'
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
   const post = slug ? getPost(slug) : undefined
 
   usePageMeta({
-    title: post ? `${post.title} — ${site.name}` : `Post not found — ${site.name}`,
-    description: post?.description ?? 'This post could not be found.',
+    title: post ? `${post.title} — Mahima Sahu` : 'Post not found',
+    description: post?.description ?? '',
   })
 
-  if (!post) {
-    return (
-      <Container className="py-24 text-center">
-        <h1 className="text-2xl font-bold">Post not found</h1>
-        <Link
-          to="/blog"
-          className="text-brand-600 dark:text-brand-400 mt-4 inline-block text-sm font-medium hover:underline"
-        >
-          Back to blog
-        </Link>
-      </Container>
-    )
-  }
+  if (!post) return <NotFound />
 
   return (
-    <article className="py-12 sm:py-16">
+    <article className="py-16 sm:py-24">
       <Container className="max-w-3xl">
         <Link
           to="/blog"
-          className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors"
+          className="border-ink bg-surface shadow-hard hover:shadow-hard-lg inline-flex rounded-full border-2 px-4 py-1.5 text-sm font-bold transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5"
         >
-          <ArrowLeft className="size-4" /> All posts
+          ← All posts
         </Link>
 
-        <header className="mt-6">
-          <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+        <header className="mt-8">
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <span className="border-ink bg-canvas inline-flex rounded-full border-2 px-3 py-1 text-xs font-semibold">
+              {formatDate(post.date)}
+            </span>
+            <span className="text-muted text-xs font-semibold">
+              {post.readingTime} min read
+            </span>
+          </div>
+          <h1 className="text-4xl leading-[1.05] text-balance sm:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-3 text-sm text-slate-500 dark:text-slate-500">
-            {formatDate(post.date)} · {post.readingTime} min read
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <p className="text-muted mt-4 text-lg leading-relaxed">{post.description}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <Badge key={tag}>{tag}</Badge>
             ))}
           </div>
         </header>
 
-        {/* Content is authored in-repo, so the markdown source is trusted. */}
-        <div
-          className="prose prose-slate dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-brand-600 dark:prose-a:text-brand-400 mt-10 max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
+        <Card className="mt-10 sm:p-10">
+          <div
+            className="prose dark:prose-invert prose-headings:font-display prose-headings:font-extrabold prose-headings:tracking-tight prose-a:text-cobalt-500 prose-a:font-semibold prose-code:before:content-none prose-code:after:content-none max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </Card>
       </Container>
     </article>
   )

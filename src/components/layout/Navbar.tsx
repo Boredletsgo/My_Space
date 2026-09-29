@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { Container } from '@/components/ui/Container'
@@ -13,7 +13,6 @@ function sectionId(href: string): string | null {
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -22,13 +21,6 @@ export function Navbar() {
     [],
   )
   const active = useActiveSection(location.pathname === '/' ? sectionIds : [])
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const goTo = (href: string) => {
     const id = sectionId(href)
@@ -48,79 +40,83 @@ export function Navbar() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const isItemActive = (href: string) => {
+    const id = sectionId(href)
+    return id
+      ? location.pathname === '/' && active === id
+      : location.pathname.startsWith(href)
+  }
+
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 transition-colors duration-200',
-        scrolled
-          ? 'border-b border-slate-200 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85'
-          : 'border-b border-transparent',
-      )}
-    >
-      <Container className="flex h-16 items-center justify-between">
-        <Link
-          to="/"
-          onClick={() => setOpen(false)}
-          className="text-brand-600 dark:text-brand-400 text-sm font-bold tracking-[0.18em] uppercase"
-        >
-          {site.name}
-        </Link>
-
-        <nav className="hidden items-center gap-1 md:flex">
-          {site.nav.map((item) => {
-            const id = sectionId(item.href)
-            const isActive = id
-              ? location.pathname === '/' && active === id
-              : location.pathname.startsWith(item.href)
-
-            return (
-              <button
-                key={item.href}
-                type="button"
-                onClick={() => goTo(item.href)}
-                className={cn(
-                  'hover:text-brand-600 dark:hover:text-brand-400 rounded-full px-3 py-2 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-slate-600 dark:text-slate-400',
-                )}
-              >
-                {item.label}
-              </button>
-            )
-          })}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            className="rounded-full border border-slate-200 p-2 text-slate-600 md:hidden dark:border-slate-700 dark:text-slate-300"
+    <header className="sticky top-0 z-50 pt-4 pb-2">
+      <Container>
+        <div className="border-ink bg-surface shadow-hard flex h-16 items-center justify-between gap-4 rounded-full border-2 px-3 sm:px-5">
+          <Link
+            to="/"
+            onClick={() => setOpen(false)}
+            className="font-display shrink-0 pl-2 text-base font-extrabold tracking-tight"
           >
-            {open ? <X className="size-4" /> : <Menu className="size-4" />}
-          </button>
-        </div>
-      </Container>
+            {site.name.split(' ')[0]}
+            <span className="text-cobalt-500">.</span>
+          </Link>
 
-      {open && (
-        <nav className="border-t border-slate-200 bg-white md:hidden dark:border-slate-800 dark:bg-slate-950">
-          <Container className="flex flex-col py-2">
+          <nav className="hidden items-center gap-1 md:flex">
             {site.nav.map((item) => (
               <button
                 key={item.href}
                 type="button"
                 onClick={() => goTo(item.href)}
-                className="hover:text-brand-600 dark:hover:text-brand-400 py-3 text-left text-sm font-medium text-slate-700 dark:text-slate-300"
+                className={cn(
+                  'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+                  isItemActive(item.href)
+                    ? 'border-ink bg-sun-400 text-ink border-2'
+                    : 'text-muted hover:text-ink',
+                )}
               >
                 {item.label}
               </button>
             ))}
-          </Container>
-        </nav>
-      )}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-2">
+            <ThemeToggle />
+            <button
+              type="button"
+              onClick={() => goTo('/#contact')}
+              className="border-ink bg-ink text-canvas hidden rounded-full border-2 px-5 py-2.5 text-sm font-bold transition-transform hover:-translate-y-0.5 sm:inline-flex"
+            >
+              Get in touch
+            </button>
+            <button
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              className="border-ink bg-surface grid size-10 place-items-center rounded-full border-2 md:hidden"
+            >
+              {open ? <X className="size-4" /> : <Menu className="size-4" />}
+            </button>
+          </div>
+        </div>
+
+        {open && (
+          <nav className="border-ink bg-surface shadow-hard mt-3 flex flex-col rounded-3xl border-2 p-2 md:hidden">
+            {site.nav.map((item) => (
+              <button
+                key={item.href}
+                type="button"
+                onClick={() => goTo(item.href)}
+                className={cn(
+                  'rounded-2xl px-4 py-3 text-left text-sm font-semibold',
+                  isItemActive(item.href) ? 'bg-sun-400 text-ink' : 'text-muted',
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        )}
+      </Container>
     </header>
   )
 }

@@ -20,17 +20,17 @@ export function Section({
   className,
 }: SectionProps) {
   return (
-    <section id={id} className={cn('scroll-mt-24 py-16 sm:py-20', className)}>
+    <section id={id} className={cn('scroll-mt-28 py-16 sm:py-24', className)}>
       <Container>
         <header className="mb-10 max-w-2xl">
           {eyebrow && (
-            <p className="text-brand-600 dark:text-brand-400 mb-2 text-xs font-semibold tracking-[0.2em] uppercase">
+            <span className="border-ink bg-sun-400 text-ink shadow-hard mb-5 inline-flex rounded-full border-2 px-4 py-1 text-xs font-bold tracking-[0.18em] uppercase">
               {eyebrow}
-            </p>
+            </span>
           )}
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h2>
+          <h2 className="text-3xl leading-[1.05] text-balance sm:text-5xl">{title}</h2>
           {description && (
-            <p className="mt-3 text-base leading-relaxed text-slate-600 dark:text-slate-400">
+            <p className="text-muted mt-4 text-base leading-relaxed sm:text-lg">
               {description}
             </p>
           )}

@@ -4,31 +4,67 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-50: oklch(0.97 0.02 295);
-  --color-brand-100: oklch(0.94 0.04 295);
-  --color-brand-200: oklch(0.89 0.07 295);
-  --color-brand-300: oklch(0.82 0.11 295);
-  --color-brand-400: oklch(0.73 0.16 295);
-  --color-brand-500: oklch(0.64 0.2 295);
-  --color-brand-600: oklch(0.56 0.21 295);
-  --color-brand-700: oklch(0.48 0.19 295);
-  --color-brand-800: oklch(0.4 0.15 295);
-  --color-brand-900: oklch(0.33 0.12 295);
+  /* Neo-brutalist palette: flat primaries on paper white, hard black outlines. */
+  --color-ink: #11110f;
+  --color-canvas: #f4f4f0;
+  --color-surface: #ffffff;
+  --color-muted: #6b6b66;
+
+  --color-sun-300: #ffe066;
+  --color-sun-400: #ffd23f;
+  --color-sun-500: #f5bf12;
+
+  --color-cobalt-400: #5a75ff;
+  --color-cobalt-500: #3b5bff;
+  --color-cobalt-600: #2843e0;
+
+  --color-coral-400: #ff6b5e;
+  --color-coral-500: #f0483e;
 
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Archivo', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  --animate-fade-up: fade-up 0.6s ease-out both;
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(1.25rem);
   }
   to {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Offset "sticker" shadows — the signature of this style. */
+@utility shadow-hard {
+  box-shadow: 4px 4px 0 0 var(--color-ink);
+}
+
+@utility shadow-hard-lg {
+  box-shadow: 7px 7px 0 0 var(--color-ink);
+}
+
+@utility shadow-hard-none {
+  box-shadow: 0 0 0 0 var(--color-ink);
+}
+
+/* Faint blueprint grid used behind the page. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 88px 88px;
 }
 
 @layer base {
@@ -38,27 +74,38 @@
 
   .dark {
     color-scheme: dark;
+    /* Tokens cascade, so every outline/shadow flips with one override. */
+    --color-ink: #f6f6f2;
+    --color-canvas: #12120f;
+    --color-surface: #1c1c18;
+    --color-muted: #a3a39c;
   }
 
   html {
     scroll-behavior: smooth;
-    /* Offset anchor targets so the sticky navbar never covers a heading. */
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
-    @apply bg-white text-slate-700 antialiased dark:bg-slate-950 dark:text-slate-300;
+    @apply bg-canvas text-ink antialiased;
+    font-synthesis-weight: none;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply text-slate-900 dark:text-white;
+    @apply font-display text-ink font-extrabold tracking-tight;
   }
 
   ::selection {
-    @apply bg-brand-500/30;
+    background: var(--color-sun-400);
+    color: #11110f;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt-500);
+    outline-offset: 3px;
   }
 }
 

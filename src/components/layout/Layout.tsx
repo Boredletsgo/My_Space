@@ -16,7 +16,7 @@ export function Layout() {
   }, [location])
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="bg-grid flex min-h-dvh flex-col">
       <Navbar />
       <main className="flex-1">
         <Outlet />
