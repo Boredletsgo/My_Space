@@ -82,10 +82,18 @@ In CI, set the same value as a repository secret named `VITE_FORMSPREE_ID`.
 
 ## Deployment (GitHub Pages)
 
-`.github/workflows/deploy.yml` builds and publishes on every push to `main`.
+**Live site: <https://boredletsgo.github.io/My_Space/>**
 
-1. Push this repository to GitHub.
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+`.github/workflows/deploy.yml` builds and publishes on every push to `main`, so
+updating the site is just `git push` — the URL never changes.
+
+One-time setup (already done for this repo):
+
+1. Push the repository to GitHub.
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions**. This step
+   cannot be automated — `GITHUB_TOKEN` is not permitted to create a Pages site, so
+   `configure-pages` with `enablement: true` fails with
+   `Resource not accessible by integration`.
 3. Push to `main`.
 
 The workflow sets `VITE_BASE` automatically:
@@ -95,6 +103,11 @@ The workflow sets `VITE_BASE` automatically:
 
 `scripts/postbuild.mjs` copies `index.html` to `404.html` so client-side routes such as
 `/blog/my-post` survive a hard refresh, and writes `.nojekyll`.
+
+### Custom domain
+
+Add a `public/CNAME` file containing the domain, point a `CNAME` DNS record at
+`boredletsgo.github.io`, then set the domain under **Settings → Pages**.
 
 ### Manual deploy
 
