@@ -15,7 +15,7 @@ export const site: SiteConfig = {
   email: 'mahimasahu6697@gmail.com',
   phone: '+91 6360330773',
   summary:
-    "AI Engineer with ~2 years of hands-on experience delivering agentic AI systems, LLM-powered automation pipelines, and enterprise test intelligence solutions inside Microsoft's engineering ecosystem — across Azure DevOps and Xbox. Promoted from Associate Software Engineer to Associate AI Engineer within the same engagement for demonstrated impact.",
+    'I build AI systems for work, write to understand what I learn, and use this little corner of the internet to share both the engineer and the person behind the screen.',
   resumePath: 'Mahima_Sahu_Resume.pdf',
   socials: [
     { label: 'GitHub', href: 'https://github.com/Boredletsgo', icon: 'github' },
@@ -27,11 +27,11 @@ export const site: SiteConfig = {
     { label: 'Email', href: 'mailto:mahimasahu6697@gmail.com', icon: 'mail' },
   ],
   nav: [
-    { label: 'About', href: '/#about' },
-    { label: 'Experience', href: '/#experience' },
-    { label: 'Projects', href: '/#projects' },
-    { label: 'Skills', href: '/#skills' },
-    { label: 'Blog', href: '/blog' },
+    { label: 'My story', href: '/#about' },
+    { label: 'Notes', href: '/#notes' },
+    { label: 'My corner', href: '/#my-corner' },
+    { label: 'Things I build', href: '/#projects' },
+    { label: 'Work', href: '/#work-highlights' },
     { label: 'Contact', href: '/#contact' },
   ],
   formspreeId: '',

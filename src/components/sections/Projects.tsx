@@ -27,9 +27,9 @@ export function Projects() {
   return (
     <Section
       id="projects"
-      eyebrow="Projects"
-      title="Better showcase"
-      description="Multi-agent systems, LLM tooling, and applied ML — from prototype to production."
+      eyebrow="Things I build"
+      title="Problems I found interesting enough to stay with."
+      description="A few systems, experiments, and tools that taught me something worth carrying into the next project."
     >
       <div className="mb-8 flex gap-3">
         {FILTERS.map((option) => (

@@ -9,9 +9,9 @@ export function ExperienceSection() {
   return (
     <Section
       id="experience"
-      eyebrow="Experience"
-      title="Where I've shipped"
-      description="Delivering agentic AI and automation inside Microsoft's engineering ecosystem."
+      eyebrow="The professional chapter"
+      title="Where I learned by shipping."
+      description="The formal timeline, for anyone who wants the career story behind the ideas and projects."
     >
       <div className="space-y-6">
         {experience.map((item, index) => (

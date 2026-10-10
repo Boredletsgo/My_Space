@@ -11,9 +11,9 @@ export function Skills() {
   return (
     <Section
       id="skills"
-      eyebrow="Skills"
-      title="The toolkit"
-      description="What I reach for when designing and shipping AI systems."
+      eyebrow="Things I reach for"
+      title="Tools, technologies, and useful building blocks."
+      description="Not a keyword wall—just the toolkit that helps me turn an idea into something real."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {skillGroups.map((group, index) => (

@@ -1,9 +1,11 @@
+import { ExternalLink, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { formatDate, getAllPosts } from '@/lib/blog'
 import { usePageMeta } from '@/hooks/usePageMeta'
+import { substack } from '@/data/writing'
 
 export default function BlogList() {
   const posts = getAllPosts()
@@ -24,8 +26,27 @@ export default function BlogList() {
             Notes from the build.
           </h1>
           <p className="text-muted mt-4 text-base leading-relaxed sm:text-lg">
-            Things I learned shipping AI platforms, .NET services and automated tests.
+            The technical archive lives here. Personal essays, career reflections, and new
+            writing now live on BoredLetsGo.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={substack.publicationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="border-ink bg-ink text-canvas shadow-hard inline-flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-sm font-bold"
+            >
+              Visit {substack.name} <ExternalLink className="size-4" />
+            </a>
+            <a
+              href={substack.subscribeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="border-ink bg-sun-400 text-ink shadow-hard inline-flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-sm font-bold"
+            >
+              <Mail className="size-4" /> Subscribe free
+            </a>
+          </div>
         </header>
 
         {posts.length === 0 ? (

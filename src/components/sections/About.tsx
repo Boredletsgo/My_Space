@@ -1,69 +1,59 @@
-import { GraduationCap, ScrollText } from 'lucide-react'
+import { ArrowRight, BookOpen, BrainCircuit, Coffee } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Section } from '@/components/ui/Section'
-import { education, publications } from '@/data/education'
 
 export function About() {
   return (
     <Section
       id="about"
-      eyebrow="About"
-      title="Turning ambiguous problems into production AI"
-      description="I work at the intersection of agentic AI and platform engineering — designing LLM control planes, MCP servers, and automation frameworks that survive real enterprise constraints."
+      eyebrow="A little about me"
+      title="There is more to a person than their job title."
+      description="This is the place where my professional world and personal curiosity meet. Some days that means designing agentic systems; other days it means writing down an idea before it disappears."
     >
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <div className="mb-6 flex items-center gap-3">
-            <span className="border-ink bg-cobalt-500 grid size-10 place-items-center rounded-full border-2 text-white">
-              <GraduationCap className="size-5" />
+      <div className="grid gap-6 md:grid-cols-3">
+        <a href="#work-highlights" className="block">
+          <Card interactive className="flex h-full flex-col">
+            <BrainCircuit className="text-cobalt-500 size-7" />
+            <h3 className="mt-8 text-xl">At work</h3>
+            <p className="text-muted mt-3 text-sm leading-relaxed">
+              I turn ambiguous engineering problems into practical AI systems, with a soft
+              spot for agents, developer tools, and automation that genuinely helps
+              people.
+            </p>
+            <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold">
+              See work & recognition <ArrowRight className="size-4" />
             </span>
-            <h3 className="text-lg">Education</h3>
-          </div>
+          </Card>
+        </a>
 
-          <ul className="space-y-5">
-            {education.map((item) => (
-              <li key={item.institution} className="border-ink border-l-2 pl-4">
-                <p className="font-bold">{item.qualification}</p>
-                <p className="text-muted mt-1 text-sm">{item.institution}</p>
-                <p className="text-muted mt-1 text-xs font-semibold">
-                  {item.period}
-                  {item.detail ? ` · ${item.detail}` : ''}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Card>
-
-        <Card>
-          <div className="mb-6 flex items-center gap-3">
-            <span className="border-ink bg-coral-500 grid size-10 place-items-center rounded-full border-2 text-white">
-              <ScrollText className="size-5" />
+        <a href="#notes" className="block">
+          <Card interactive className="flex h-full flex-col">
+            <BookOpen className="text-coral-500 size-7" />
+            <h3 className="mt-8 text-xl">In my notebook</h3>
+            <p className="text-muted mt-3 text-sm leading-relaxed">
+              I write about the things I am learning while building: architecture choices,
+              stubborn bugs, experiments, and lessons that do not fit into a résumé.
+            </p>
+            <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold">
+              Read BoredLetsGo <ArrowRight className="size-4" />
             </span>
-            <h3 className="text-lg">Research & Publications</h3>
-          </div>
+          </Card>
+        </a>
 
-          <ul className="space-y-5">
-            {publications.map((item) => (
-              <li key={item.title} className="border-ink border-l-2 pl-4">
-                <p className="font-bold">
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="decoration-sun-500 underline-offset-4 hover:underline hover:decoration-4"
-                    >
-                      {item.title}
-                    </a>
-                  ) : (
-                    item.title
-                  )}
-                </p>
-                <p className="text-muted mt-1 text-xs font-semibold">{item.venue}</p>
-              </li>
-            ))}
-          </ul>
-        </Card>
+        <a href="#my-corner" className="block">
+          <Card interactive className="flex h-full flex-col">
+            <Coffee className="text-sun-500 size-7" />
+            <h3 className="mt-8 text-xl">Beyond the screen</h3>
+            <p className="text-muted mt-3 text-sm leading-relaxed">
+              This corner is still growing. It is for the interests, observations, and
+              ordinary moments that make the work—and the person doing it—more
+              interesting.
+            </p>
+            <span className="mt-auto flex items-center gap-2 pt-7 text-sm font-bold">
+              Step into my corner <ArrowRight className="size-4" />
+            </span>
+          </Card>
+        </a>
       </div>
     </Section>
   )

@@ -18,7 +18,8 @@ export function Footer() {
       <Container>
         <div className="border-ink bg-ink text-canvas shadow-hard flex flex-col items-center justify-between gap-5 rounded-3xl border-2 px-6 py-7 sm:flex-row">
           <p className="text-center text-sm font-medium sm:text-left">
-            © {new Date().getFullYear()} {site.name} — built with React, Vite & Tailwind.
+            © {new Date().getFullYear()} {site.name} — part portfolio, part notebook,
+            always evolving.
           </p>
           <div className="flex items-center gap-3">
             {site.socials.map((social) => {

@@ -49,9 +49,9 @@ export function Contact() {
   return (
     <Section
       id="contact"
-      eyebrow="Contact"
-      title="Let's build something"
-      description="Open to AI engineering roles, agentic system design, and collaborations."
+      eyebrow="Say hello"
+      title="A good conversation is a fine place to start."
+      description="Reach out about AI engineering, a collaboration, something I wrote, or simply an idea you want to exchange."
     >
       <div className="grid gap-6 md:grid-cols-[1fr_1.35fr]">
         <div className="space-y-5">

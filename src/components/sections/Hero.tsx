@@ -1,4 +1,4 @@
-import { ArrowRight, Download, Mail } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, Download, Mail, Sparkles } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/BrandIcons'
 import { LinkButton } from '@/components/ui/Button'
@@ -14,112 +14,101 @@ const icons: Record<SocialLink['icon'], ComponentType<{ className?: string }>> =
   phone: Mail,
 }
 
-const stats = [
-  { value: '2+', label: 'Years shipping AI', tone: 'sun' as const },
-  { value: '100+', label: 'Test scenarios traced', tone: 'cobalt' as const },
-  { value: '~40%', label: 'Onboarding effort cut', tone: 'coral' as const },
-]
-
-const toneClass = {
-  sun: 'bg-sun-400 text-ink',
-  cobalt: 'bg-cobalt-500 text-white',
-  coral: 'bg-coral-500 text-white',
-}
-
 export function Hero() {
   return (
-    <section id="home" className="pt-6 pb-12 sm:pt-10 sm:pb-16">
+    <section id="home" className="pt-8 pb-12 sm:pt-14 sm:pb-20">
       <Container>
-        <div className="animate-fade-up border-ink bg-surface shadow-hard-lg overflow-hidden rounded-[2rem] border-2">
-          <div className="border-ink border-b-2 px-6 py-10 sm:px-12 sm:py-16">
-            <span className="border-ink bg-coral-500 mb-6 inline-flex items-center gap-2 rounded-full border-2 px-4 py-1.5 text-xs font-bold tracking-wide text-white uppercase">
-              <span className="size-2 rounded-full bg-white" />
-              Open to work
+        <div className="animate-fade-up grid items-stretch gap-6 lg:grid-cols-[1.35fr_0.65fr]">
+          <div className="border-ink bg-surface shadow-hard-lg rounded-[2.5rem] border-2 px-7 py-12 sm:px-12 sm:py-16">
+            <span className="text-cobalt-500 mb-8 inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase">
+              <Sparkles className="size-4" />
+              Engineer · Writer · Work in progress
             </span>
 
-            <h1 className="font-display text-[2.6rem] leading-[0.95] tracking-[-0.03em] text-balance sm:text-7xl lg:text-[5.5rem]">
-              Hi, I&apos;m {site.name.split(' ')[0]}! /
-              <br />
-              <span className="text-cobalt-500">{site.role}</span>
+            <h1 className="font-display max-w-4xl text-[3.25rem] leading-[0.98] tracking-[-0.035em] text-balance sm:text-7xl lg:text-[5.4rem]">
+              Building useful AI,
+              <span className="text-coral-500"> collecting stories</span> along the way.
             </h1>
 
-            <div className="mt-8 flex flex-wrap items-center gap-2">
-              {site.taglines.map((tagline) => (
-                <span
-                  key={tagline}
-                  className="border-ink bg-canvas rounded-full border-2 px-3.5 py-1.5 text-xs font-semibold"
-                >
-                  {tagline}
-                </span>
-              ))}
-            </div>
-
-            <p className="text-muted mt-8 max-w-2xl text-base leading-relaxed sm:text-lg">
-              {site.summary}
+            <p className="text-muted mt-8 max-w-2xl text-base leading-relaxed sm:text-xl">
+              Hi, I&apos;m {site.name.split(' ')[0]}. {site.summary}
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <LinkButton href="#contact" variant="primary">
-                Get in touch <ArrowRight className="size-4" />
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <LinkButton href="#about" variant="primary">
+                Meet the person <ArrowDownRight className="size-4" />
               </LinkButton>
-              <LinkButton
-                href={asset(site.resumePath)}
-                download
-                variant="sun"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Download className="size-4" /> Download resume
+              <LinkButton href="/blog" variant="outline">
+                Read my notes <ArrowRight className="size-4" />
               </LinkButton>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 sm:px-12">
-            <div className="flex items-center gap-3">
-              <span className="border-ink bg-sun-400 font-display text-ink grid size-11 place-items-center rounded-full border-2 text-base font-extrabold">
+          <aside className="border-ink bg-cobalt-500 shadow-hard-lg flex min-h-[28rem] flex-col justify-between overflow-hidden rounded-[2.5rem] border-2 p-7 text-white sm:p-9">
+            <div>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase opacity-70">
+                Currently exploring
+              </p>
+              <p className="font-display mt-5 text-3xl leading-tight text-white dark:text-white">
+                How thoughtful AI tools can make complicated work feel a little more human.
+              </p>
+            </div>
+
+            <div>
+              <div className="mb-7 flex flex-wrap gap-2">
+                {site.taglines.slice(0, 4).map((tagline) => (
+                  <span
+                    key={tagline}
+                    className="rounded-full border border-white/40 px-3 py-1.5 text-xs font-semibold"
+                  >
+                    {tagline}
+                  </span>
+                ))}
+              </div>
+
+              <span className="bg-sun-400 font-display text-ink grid size-14 place-items-center rounded-full text-lg font-bold">
                 {site.name
                   .split(' ')
                   .map((part) => part[0])
                   .join('')}
               </span>
-              <div>
-                <p className="text-sm font-bold">{site.name}</p>
-                <p className="text-muted text-xs font-medium">{site.location}</p>
+              <p className="mt-4 font-bold">{site.name}</p>
+              <p className="mt-1 text-sm text-white/70">
+                {site.role} · {site.location}
+              </p>
+
+              <div className="mt-5 flex items-center gap-2">
+                {site.socials.map((social) => {
+                  const Icon = icons[social.icon]
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target={social.href.startsWith('http') ? '_blank' : undefined}
+                      rel="noreferrer"
+                      aria-label={social.label}
+                      className="grid size-10 place-items-center rounded-full border border-white/40 transition-colors hover:bg-white hover:text-cobalt-600"
+                    >
+                      <Icon className="size-4" />
+                    </a>
+                  )
+                })}
               </div>
             </div>
-
-            <div className="flex items-center gap-2">
-              {site.socials.map((social) => {
-                const Icon = icons[social.icon]
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target={social.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noreferrer"
-                    aria-label={social.label}
-                    className="border-ink hover:bg-sun-400 grid size-10 place-items-center rounded-full border-2 transition-colors"
-                  >
-                    <Icon className="size-4" />
-                  </a>
-                )
-              })}
-            </div>
-          </div>
+          </aside>
         </div>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-3">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className={`border-ink shadow-hard rounded-3xl border-2 px-6 py-5 ${toneClass[stat.tone]}`}
-            >
-              <p className="font-display text-4xl leading-none font-extrabold">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-sm font-semibold">{stat.label}</p>
-            </div>
-          ))}
+        <div className="mt-5 flex justify-end">
+          <LinkButton
+            href={asset(site.resumePath)}
+            download
+            variant="outline"
+            target="_blank"
+            rel="noreferrer"
+            className="shadow-none"
+          >
+            <Download className="size-4" /> Prefer the formal version? Download résumé
+          </LinkButton>
         </div>
       </Container>
     </section>
