@@ -1,161 +1,152 @@
-import { BookHeart, Camera, Compass, Heart, Palette, Sparkles } from 'lucide-react'
-import type { ComponentType } from 'react'
+import { BookHeart, Brain, Camera, Palette } from 'lucide-react'
+import { useState, type ComponentType } from 'react'
+import { BookshelfCarousel } from '@/components/ui/BookshelfCarousel'
+import { CuriosityBoard } from '@/components/ui/CuriosityBoard'
+import { MemoryCarousel } from '@/components/ui/MemoryCarousel'
 import { PersonalGallery } from '@/components/ui/PersonalGallery'
 import { Section } from '@/components/ui/Section'
 import {
   personalCornerCollections,
   type PersonalCornerCategory,
 } from '@/data/personalCorner'
-import { asset, cn } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 const categoryStyle: Record<
   PersonalCornerCategory,
   {
     icon: ComponentType<{ className?: string }>
     color: string
+    tabColor: string
     rotation: string
-    span: string
   }
 > = {
   art: {
     icon: Palette,
     color: 'bg-coral-500 text-white',
-    rotation: 'lg:-rotate-1',
-    span: 'lg:col-span-2',
+    tabColor: 'bg-coral-500 text-white',
+    rotation: 'lg:-rotate-[0.4deg]',
   },
   memories: {
     icon: Camera,
     color: 'bg-cobalt-500 text-white',
-    rotation: 'lg:rotate-1',
-    span: 'lg:col-span-1',
+    tabColor: 'bg-cobalt-500 text-white',
+    rotation: 'lg:rotate-[0.4deg]',
   },
   hobbies: {
-    icon: Heart,
+    icon: Brain,
     color: 'bg-sun-400 text-ink',
-    rotation: 'lg:rotate-1',
-    span: 'lg:col-span-1',
+    tabColor: 'bg-sun-400 text-ink',
+    rotation: 'lg:-rotate-[0.4deg]',
   },
   favorites: {
     icon: BookHeart,
     color: 'bg-surface text-ink',
-    rotation: 'lg:-rotate-1',
-    span: 'lg:col-span-1',
-  },
-  values: {
-    icon: Compass,
-    color: 'bg-cobalt-500 text-white',
-    rotation: 'lg:rotate-1',
-    span: 'lg:col-span-1',
-  },
-  curiosity: {
-    icon: Sparkles,
-    color: 'bg-sun-400 text-ink',
-    rotation: 'lg:-rotate-1',
-    span: 'lg:col-span-2',
+    tabColor: 'bg-surface text-ink',
+    rotation: 'lg:rotate-[0.4deg]',
   },
 }
 
 export function PersonalCorner() {
+  const [activeCategory, setActiveCategory] = useState<PersonalCornerCategory>('art')
+  const collection =
+    personalCornerCollections.find((item) => item.category === activeCategory) ??
+    personalCornerCollections[0]
+  const style = categoryStyle[collection.category]
+  const Icon = style.icon
+
   return (
     <Section
       id="my-corner"
       eyebrow="My corner"
       title="Know the person, not just the profile."
-      description="A scrapbook for the art, memories, interests, ideas, and tiny details that do not belong on a résumé—but still say something about who I am."
+      description="Open one drawer at a time: art, memories, current obsessions, and the stories waiting on my shelf."
     >
-      <div className="border-ink bg-surface shadow-hard-lg relative overflow-hidden rounded-[2rem] border-2 p-5 sm:p-8">
+      <div
+        role="tablist"
+        aria-label="Explore my personal corner"
+        className="mb-6 flex gap-3 overflow-x-auto px-1 pt-1 pb-3"
+      >
+        {personalCornerCollections.map((item, index) => {
+          const tabStyle = categoryStyle[item.category]
+          const TabIcon = tabStyle.icon
+          const selected = item.category === activeCategory
+
+          return (
+            <button
+              key={item.category}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              aria-controls="personal-corner-panel"
+              onClick={() => setActiveCategory(item.category)}
+              className={cn(
+                'border-ink flex shrink-0 items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-all',
+                selected
+                  ? `${tabStyle.tabColor} shadow-hard -translate-y-0.5`
+                  : 'bg-surface text-muted hover:text-ink',
+                index % 2 === 0 ? '-rotate-1' : 'rotate-1',
+              )}
+            >
+              <TabIcon className="size-4" />
+              {item.title}
+            </button>
+          )
+        })}
+      </div>
+
+      <article
+        id="personal-corner-panel"
+        role="tabpanel"
+        className={cn(
+          'border-ink shadow-hard-lg relative min-h-72 overflow-hidden rounded-[2rem] border-2 p-5 transition-colors sm:p-8',
+          style.color,
+          style.rotation,
+        )}
+      >
         <span
-          className="bg-coral-400 border-ink absolute top-3 left-1/2 h-8 w-28 -translate-x-1/2 -rotate-2 border-x-2 opacity-80"
+          className="bg-coral-300 border-ink absolute top-3 left-1/2 h-8 w-28 -translate-x-1/2 -rotate-2 border-x-2 opacity-80"
           aria-hidden
         />
 
-        <div className="grid gap-6 pt-5 md:grid-cols-2 lg:grid-cols-3">
-          {personalCornerCollections.map((collection) => {
-            const style = categoryStyle[collection.category]
-            const Icon = style.icon
+        <div className="relative pt-5">
+          <span className="border-ink bg-surface text-ink grid size-11 place-items-center rounded-full border-2">
+            <Icon className="size-5" />
+          </span>
 
-            return (
-              <article
-                key={collection.category}
-                className={cn(
-                  'border-ink shadow-hard relative flex min-h-72 flex-col rounded-2xl border-2 p-5 transition-transform hover:rotate-0',
-                  style.color,
-                  style.rotation,
-                  style.span,
-                )}
-              >
-                <span className="border-ink bg-surface text-ink grid size-11 place-items-center rounded-full border-2">
-                  <Icon className="size-5" />
-                </span>
+          <h3
+            className={cn(
+              'mt-6 text-2xl sm:text-3xl',
+              style.color.includes('text-white') && 'text-white dark:text-white',
+            )}
+          >
+            {collection.title}
+          </h3>
+          <p
+            className={cn(
+              'mt-3 max-w-2xl text-sm leading-relaxed sm:text-base',
+              style.color.includes('text-white') ? 'text-white/75' : 'text-muted',
+            )}
+          >
+            {collection.prompt}
+          </p>
 
-                <h3
-                  className={cn(
-                    'mt-6 text-2xl',
-                    style.color.includes('text-white') && 'text-white dark:text-white',
-                  )}
-                >
-                  {collection.title}
-                </h3>
-                <p
-                  className={cn(
-                    'mt-3 max-w-xl text-sm leading-relaxed',
-                    style.color.includes('text-white') ? 'text-white/75' : 'text-muted',
-                  )}
-                >
-                  {collection.prompt}
-                </p>
-
-                {collection.category === 'art' && collection.items.length > 0 ? (
-                  <PersonalGallery items={collection.items} />
-                ) : collection.items.length > 0 ? (
-                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                    {collection.items.map((item) => {
-                      const content = (
-                        <>
-                          {item.image && (
-                            <img
-                              src={asset(item.image)}
-                              alt=""
-                              className="border-ink aspect-square w-full rounded-xl border-2 object-cover"
-                            />
-                          )}
-                          <p className="mt-3 text-sm font-bold">{item.title}</p>
-                          {item.description && (
-                            <p className="mt-1 text-xs opacity-75">{item.description}</p>
-                          )}
-                        </>
-                      )
-
-                      return item.href ? (
-                        <a
-                          key={item.title}
-                          href={item.href}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {content}
-                        </a>
-                      ) : (
-                        <div key={item.title}>{content}</div>
-                      )
-                    })}
-                  </div>
-                ) : (
-                  <div className="border-ink/40 mt-auto rounded-xl border-2 border-dashed p-4">
-                    <p className="text-xs font-bold tracking-[0.14em] uppercase opacity-65">
-                      Ready for the first addition
-                    </p>
-                  </div>
-                )}
-              </article>
-            )
-          })}
+          {collection.category === 'art' ? (
+            <PersonalGallery items={collection.items} />
+          ) : collection.category === 'memories' ? (
+            <div className="max-w-lg">
+              <MemoryCarousel items={collection.items} />
+            </div>
+          ) : collection.category === 'hobbies' ? (
+            <CuriosityBoard />
+          ) : (
+            <BookshelfCarousel />
+          )}
         </div>
+      </article>
 
-        <p className="text-muted mt-9 text-center text-sm font-semibold">
-          This corner is intentionally unfinished. It gets to grow as I do.
-        </p>
-      </div>
+      <p className="text-muted mt-7 text-center text-sm font-semibold">
+        This corner is intentionally unfinished. It gets to grow as I do.
+      </p>
     </Section>
   )
 }

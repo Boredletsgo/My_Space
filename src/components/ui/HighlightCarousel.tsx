@@ -61,6 +61,8 @@ export function HighlightCarousel({
           src={imageSrc}
           alt=""
           aria-hidden
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full scale-110 object-cover opacity-25 blur-2xl"
         />
         <span className="bg-canvas/70 absolute inset-0" aria-hidden />
@@ -74,6 +76,8 @@ export function HighlightCarousel({
           <img
             src={imageSrc}
             alt={`${active.title} ${itemName}`}
+            loading="lazy"
+            decoding="async"
             className="border-ink shadow-hard max-h-full max-w-full rounded-xl border-2 object-contain"
           />
         </button>
@@ -180,6 +184,7 @@ export function HighlightCarousel({
             <img
               src={imageSrc}
               alt={`${active.title} ${itemName}`}
+              decoding="async"
               className="max-h-[90vh] max-w-full object-contain"
             />
           </div>

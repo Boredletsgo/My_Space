@@ -45,6 +45,8 @@ export function PersonalGallery({ items }: { items: PersonalCornerItem[] }) {
                   <img
                     src={asset(item.image!)}
                     alt={item.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-auto w-full rounded-lg"
                   />
                   <span className="flex items-center justify-between gap-3 px-2 pt-3 pb-1">
@@ -81,6 +83,7 @@ export function PersonalGallery({ items }: { items: PersonalCornerItem[] }) {
             <img
               src={asset(active.image!)}
               alt={active.title}
+              decoding="async"
               className="max-h-[84vh] max-w-full rounded-xl object-contain"
             />
             <figcaption className="text-sm font-bold text-white">

@@ -9,7 +9,6 @@ const icons: Record<SocialLink['icon'], ComponentType<{ className?: string }>> =
   github: GithubIcon,
   linkedin: LinkedinIcon,
   mail: Mail,
-  phone: Mail,
 }
 
 export function Footer() {

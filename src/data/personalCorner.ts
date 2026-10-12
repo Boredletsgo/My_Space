@@ -1,5 +1,4 @@
-export type PersonalCornerCategory =
-  'art' | 'memories' | 'hobbies' | 'favorites' | 'values' | 'curiosity'
+export type PersonalCornerCategory = 'art' | 'memories' | 'hobbies' | 'favorites'
 
 export interface PersonalCornerItem {
   title: string
@@ -26,32 +25,37 @@ export const personalCornerCollections: PersonalCornerCollection[] = [
       {
         title: 'Crimson Moon',
         group: 'Digital art',
-        image: 'personal/art/crimson-moon.png',
+        image: 'personal/art/crimson-moon.webp',
       },
       {
         title: 'Geometric Colour Study',
         group: 'Digital art',
-        image: 'personal/art/geometric-color-study.png',
+        image: 'personal/art/geometric-color-study.webp',
       },
       {
         title: 'Minimal Rose',
         group: 'Digital art',
-        image: 'personal/art/minimal-rose.png',
+        image: 'personal/art/minimal-rose.webp',
+      },
+      {
+        title: 'Pastel Crescent',
+        group: 'Digital art',
+        image: 'personal/art/pastel-crescent.webp',
       },
       {
         title: 'Clouds Before Dusk',
         group: 'Scenery',
-        image: 'personal/art/cloudy-sky.png',
+        image: 'personal/art/cloudy-sky.webp',
       },
       {
         title: 'Garden Visitor',
         group: 'Scenery',
-        image: 'personal/art/garden-visitor.png',
+        image: 'personal/art/garden-visitor.webp',
       },
       {
         title: 'Bougainvillea in Bloom',
         group: 'Scenery',
-        image: 'personal/art/bougainvillea.png',
+        image: 'personal/art/bougainvillea.webp',
       },
     ],
   },
@@ -59,30 +63,41 @@ export const personalCornerCollections: PersonalCornerCollection[] = [
     category: 'memories',
     title: 'Memory box',
     prompt: 'Photos, places, celebrations, and ordinary moments worth keeping.',
-    items: [],
+    items: [
+      {
+        title: 'Books, books, books',
+        description: 'A very predictable place to lose track of time.',
+        image: 'personal/memories/books-and-browsing.webp',
+      },
+      {
+        title: 'A day among stories',
+        description: 'Wandering through the Bangalore Literature Festival.',
+        image: 'personal/memories/literature-festival.webp',
+      },
+      {
+        title: 'Bubble tea intermission',
+        description: 'Because every serious literary outing needs a snack break.',
+        image: 'personal/memories/bubble-tea-break.webp',
+      },
+      {
+        title: 'Made a fluffy friend',
+        description: 'The cat was clearly the main character here.',
+        image: 'personal/memories/cat-cafe.webp',
+      },
+    ],
   },
   {
     category: 'hobbies',
-    title: 'Little joys',
-    prompt: 'The hobbies, rituals, and small things that make an ordinary day better.',
+    title: 'Currently curious about',
+    prompt:
+      'New skills, impossible plans, and rabbit holes with absolutely no respect for a five-year plan.',
     items: [],
   },
   {
     category: 'favorites',
     title: 'On my shelf',
-    prompt: 'Books, films, music, creators, and stories I keep returning to.',
-    items: [],
-  },
-  {
-    category: 'values',
-    title: 'Things I believe',
-    prompt: 'Values, quirks, reminders, and a few truths I try to carry with me.',
-    items: [],
-  },
-  {
-    category: 'curiosity',
-    title: 'Currently curious about',
-    prompt: 'Questions, ideas, and rabbit holes taking up space in my mind right now.',
+    prompt:
+      'Fantasy worlds, curious minds, human behaviour, and the occasional attempt to build better habits.',
     items: [],
   },
 ]

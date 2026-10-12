@@ -1,4 +1,4 @@
-import { Loader2, Mail, Phone, Send } from 'lucide-react'
+import { Loader2, Mail, Send } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -8,6 +8,7 @@ import { site } from '@/data/site'
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
 const formspreeId = import.meta.env.VITE_FORMSPREE_ID ?? site.formspreeId
+const usesEmailClient = !formspreeId
 
 const inputClass =
   'w-full rounded-2xl border-2 border-ink bg-surface px-4 py-3 text-sm font-medium text-ink outline-none transition-shadow placeholder:text-muted focus:shadow-hard'
@@ -54,25 +55,19 @@ export function Contact() {
       description="Reach out about AI engineering, a collaboration, something I wrote, or simply an idea you want to exchange."
     >
       <div className="grid gap-6 md:grid-cols-[1fr_1.35fr]">
-        <div className="space-y-5">
-          <Card tone="cobalt">
+        <div>
+          <Card tone="cobalt" className="flex h-full min-h-64 flex-col justify-between">
             <a href={`mailto:${site.email}`} className="block">
               <Mail className="size-6" />
               <p className="mt-4 text-xs font-bold tracking-[0.18em] uppercase opacity-80">
-                Email
+                Best way to reach me
               </p>
               <p className="mt-1 text-sm font-bold break-all">{site.email}</p>
             </a>
-          </Card>
-
-          <Card tone="sun">
-            <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="block">
-              <Phone className="size-6" />
-              <p className="mt-4 text-xs font-bold tracking-[0.18em] uppercase opacity-70">
-                Phone
-              </p>
-              <p className="mt-1 text-sm font-bold">{site.phone}</p>
-            </a>
+            <p className="mt-10 text-sm leading-relaxed text-white/75">
+              Whether it is an AI idea, something I wrote, or an interesting problem,
+              email gives us both room to begin thoughtfully.
+            </p>
           </Card>
         </div>
 
@@ -121,12 +116,24 @@ export function Contact() {
               <Button type="submit" disabled={status === 'sending'}>
                 {status === 'sending' ? (
                   <Loader2 className="size-4 animate-spin" />
+                ) : usesEmailClient ? (
+                  <Mail className="size-4" />
                 ) : (
                   <Send className="size-4" />
                 )}
-                {status === 'sending' ? 'Sending…' : 'Send message'}
+                {status === 'sending'
+                  ? 'Sending…'
+                  : usesEmailClient
+                    ? 'Open email'
+                    : 'Send message'}
               </Button>
 
+              {usesEmailClient && (
+                <p className="text-muted max-w-xs text-xs leading-relaxed">
+                  This opens your email app with the message filled in. Nothing is sent
+                  automatically.
+                </p>
+              )}
               {status === 'sent' && (
                 <p className="border-ink bg-sun-400 rounded-full border-2 px-4 py-1.5 text-sm font-bold">
                   Thanks — I'll be in touch.

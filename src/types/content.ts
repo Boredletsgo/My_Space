@@ -1,7 +1,7 @@
 export interface SocialLink {
   label: string
   href: string
-  icon: 'github' | 'linkedin' | 'mail' | 'phone'
+  icon: 'github' | 'linkedin' | 'mail'
 }
 
 export interface NavItem {
@@ -15,10 +15,7 @@ export interface SiteConfig {
   taglines: string[]
   location: string
   email: string
-  phone: string
   summary: string
-  /** Path is resolved against the Vite base URL at render time. */
-  resumePath: string
   socials: SocialLink[]
   nav: NavItem[]
   /** Formspree form id. Empty string falls back to a mailto: submission. */

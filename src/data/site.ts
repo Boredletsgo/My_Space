@@ -13,10 +13,8 @@ export const site: SiteConfig = {
   ],
   location: 'India',
   email: 'mahimasahu6697@gmail.com',
-  phone: '+91 6360330773',
   summary:
     'I build AI systems for work, write to understand what I learn, and use this little corner of the internet to share both the engineer and the person behind the screen.',
-  resumePath: 'Mahima_Sahu_Resume.pdf',
   socials: [
     { label: 'GitHub', href: 'https://github.com/Boredletsgo', icon: 'github' },
     {
@@ -28,10 +26,10 @@ export const site: SiteConfig = {
   ],
   nav: [
     { label: 'My story', href: '/#about' },
+    { label: 'Work', href: '/#work-highlights' },
     { label: 'Notes', href: '/#notes' },
     { label: 'My corner', href: '/#my-corner' },
-    { label: 'Things I build', href: '/#projects' },
-    { label: 'Work', href: '/#work-highlights' },
+    { label: 'Professional', href: '/#professional' },
     { label: 'Contact', href: '/#contact' },
   ],
   formspreeId: '',

@@ -25,7 +25,7 @@ export function JournalPreview() {
           <div className="max-w-3xl">
             <div className="mb-5 flex flex-wrap items-center gap-3">
               <span className="border-ink bg-sun-400 text-ink rounded-full border-2 px-3 py-1 text-xs font-bold tracking-[0.14em] uppercase">
-                First on Substack
+                Latest on Substack
               </span>
               <span className="text-xs font-semibold text-white/70">
                 {formatDate(featuredPost.date)} · {featuredPost.category}

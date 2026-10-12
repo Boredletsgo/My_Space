@@ -60,7 +60,7 @@ export function Navbar() {
             <span className="text-cobalt-500">.</span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1 xl:flex">
             {site.nav.map((item) => (
               <button
                 key={item.href}
@@ -92,7 +92,7 @@ export function Navbar() {
               onClick={() => setOpen((value) => !value)}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
-              className="border-ink bg-surface grid size-10 place-items-center rounded-full border-2 md:hidden"
+              className="border-ink bg-surface grid size-10 place-items-center rounded-full border-2 xl:hidden"
             >
               {open ? <X className="size-4" /> : <Menu className="size-4" />}
             </button>
@@ -100,7 +100,7 @@ export function Navbar() {
         </div>
 
         {open && (
-          <nav className="border-ink bg-surface shadow-hard mt-3 flex flex-col rounded-3xl border-2 p-2 md:hidden">
+          <nav className="border-ink bg-surface shadow-hard mt-3 flex flex-col rounded-3xl border-2 p-2 xl:hidden">
             {site.nav.map((item) => (
               <button
                 key={item.href}

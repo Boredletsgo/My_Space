@@ -1,17 +1,15 @@
-import { ArrowDownRight, ArrowRight, Download, Mail, Sparkles } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, Mail, Sparkles } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { GithubIcon, LinkedinIcon } from '@/components/ui/BrandIcons'
 import { LinkButton } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { site } from '@/data/site'
-import { asset } from '@/lib/utils'
 import type { SocialLink } from '@/types/content'
 
 const icons: Record<SocialLink['icon'], ComponentType<{ className?: string }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
   mail: Mail,
-  phone: Mail,
 }
 
 export function Hero() {
@@ -50,7 +48,8 @@ export function Hero() {
                 Currently exploring
               </p>
               <p className="font-display mt-5 text-3xl leading-tight text-white dark:text-white">
-                How thoughtful AI tools can make complicated work feel a little more human.
+                How thoughtful AI tools can make complicated work feel a little more
+                human.
               </p>
             </div>
 
@@ -87,7 +86,7 @@ export function Hero() {
                       target={social.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
                       aria-label={social.label}
-                      className="grid size-10 place-items-center rounded-full border border-white/40 transition-colors hover:bg-white hover:text-cobalt-600"
+                      className="hover:text-cobalt-600 grid size-10 place-items-center rounded-full border border-white/40 transition-colors hover:bg-white"
                     >
                       <Icon className="size-4" />
                     </a>
@@ -96,19 +95,6 @@ export function Hero() {
               </div>
             </div>
           </aside>
-        </div>
-
-        <div className="mt-5 flex justify-end">
-          <LinkButton
-            href={asset(site.resumePath)}
-            download
-            variant="outline"
-            target="_blank"
-            rel="noreferrer"
-            className="shadow-none"
-          >
-            <Download className="size-4" /> Prefer the formal version? Download résumé
-          </LinkButton>
         </div>
       </Container>
     </section>
